@@ -31,13 +31,13 @@
    * @return {array} A replica of the original array with the iterator applied to each element.
    */
   function map (originalObject, iteratorFunction) {
-  	// Create the array we are going to fill up.
-  	var returnArray = [],
-  	    mapper = function(value) {
+    // Create the array we are going to fill up.
+    var returnArray = [],
+        mapper = function(value) {
           returnArray.push(iteratorFunction.apply(iteratorFunction, [value]));
-  	    };
-  	each(originalObject, mapper);
-  	return returnArray;
+        };
+    each(originalObject, mapper);
+    return returnArray;
   }
 
   /**
@@ -78,22 +78,22 @@
    * @return {Array} The array of objects that match the properties the user has specified.
    */
   function where (arrayOfObjects, properties) {
-  	// The return array we are going to pass back to the user with the objects that
-  	// matched the properties.
-  	var returnArray = [],
-  	    matcher = function (object) {
-  	    	for (var index in properties) {
-  	    		// If we find that the value on the object we are testing does
-  	    		// not equal the property the user wanted we will return.
-  	    		if (object[index] !== properties[index]) {
+    // The return array we are going to pass back to the user with the objects that
+    // matched the properties.
+    var returnArray = [],
+        matcher = function (object) {
+          for (var index in properties) {
+            // If we find that the value on the object we are testing does
+            // not equal the property the user wanted we will return.
+            if (object[index] !== properties[index]) {
               return;
-  	    		}
-  	    	}
-  	    	// If we got to here all of the values have matched so we will push it it.
-  	    	returnArray.push(object);
-  	    }
-  	each(arrayOfObjects, matcher);
-  	return returnArray;
+            }
+          }
+          // If we got to here all of the values have matched so we will push it it.
+          returnArray.push(object);
+        }
+    each(arrayOfObjects, matcher);
+    return returnArray;
   }
 
   /**
@@ -106,15 +106,15 @@
    * @return {array} This will be an array of the values that made the predicate return true.
    */
   function reject (inputObject, predicateFunction) {
-  	// The return array which will be filled with the values that make the predicate function return true.
-  	var returnArray = [];
-  	    evaluator = function (value) {
-  	    	if (predicateFunction.apply(predicateFunction, [value])) {
-  	    		returnArray.push(value);
-  	    	}
-  	    };
-  	each(inputObject, evaluator);
-  	return returnArray;
+    // The return array which will be filled with the values that make the predicate function return true.
+    var returnArray = [];
+        evaluator = function (value) {
+          if (predicateFunction.apply(predicateFunction, [value])) {
+            returnArray.push(value);
+          }
+        };
+    each(inputObject, evaluator);
+    return returnArray;
   }
 
   /**
@@ -126,18 +126,18 @@
    * @return {array} An array of all of the values for the attribute we are looking for.
    */
   function pluck (arrayOfObjects, attribute) {
-  	// Make sure the user has passed in an array as the first param.
-  	validateInputWasArray(arrayOfObjects);
-  	//array to store all of the plucked attributes
-  	var arryOfPluckedAttributes = [];
-  	    // Function to be passed to each, that will pluck the attribute we want from the objects.
-  	    plucker = function (currentObject) {
-  	    	if (currentObject[attribute]) {
+    // Make sure the user has passed in an array as the first param.
+    validateInputWasArray(arrayOfObjects);
+    //array to store all of the plucked attributes
+    var arryOfPluckedAttributes = [];
+        // Function to be passed to each, that will pluck the attribute we want from the objects.
+        plucker = function (currentObject) {
+          if (currentObject[attribute]) {
             arryOfPluckedAttributes.push(currentObject[attribute]);
-  	    	}
-   	    }
-  	each(arrayOfObjects, plucker);
-  	return arryOfPluckedAttributes;
+          }
+        }
+    each(arrayOfObjects, plucker);
+    return arryOfPluckedAttributes;
   }
 
   /**
@@ -147,12 +147,12 @@
    */
   function validateInputWasArray (objectToTest) {
     if (!isArray(objectToTest)) { 
-  		throw {
-  			name: 'Invalid input',
-  			message: 'First argument into ' + arguments.callee.caller.name + ' function must be array.',
-  			toString: function() {return this.name + ': ' + this.message;}
-  		};
-  	}
+      throw {
+        name: 'Invalid input',
+        message: 'First argument into ' + arguments.callee.caller.name + ' function must be array.',
+        toString: function() {return this.name + ': ' + this.message;}
+      };
+    }
   }
 
   /**
@@ -161,7 +161,7 @@
    * @return {bool} True if the object is an array and false if it is not.
    */
   function isArray(objectToTest) {
-  	return Array.isArray(objectToTest);
+    return Array.isArray(objectToTest);
   }
 
   /**
@@ -172,7 +172,7 @@
    * @param {array}    arrayOfArguments  The array of arguments we want to pass to functionToCall.
    */
   function times (numberOfTimes, functionToCall, arrayOfArguments) {
-  	validateInputWasArray(arrayOfArguments);
+    validateInputWasArray(arrayOfArguments);
     for (var i = 0; i < numberOfTimes; i++) {
       functionToCall.apply(functionToCall, [arrayOfArguments]);
     }
@@ -189,14 +189,14 @@
    * @return {function} function the the user can fill will all of the args it wants.
    */
    function partialApplication (functionToCall, context, inititalArguments) {
-   	// Set the context to the context the user passed in or the function to call.
-   	var context = context || functionToCall;
-   	// Return a function so the user can fill it up with args and complete the full application
-   	// of this function call.
-   	return function (/* args */) {
-   		var fullArgList = constructArgs(inititalArguments, arguments);
+    // Set the context to the context the user passed in or the function to call.
+    var context = context || functionToCall;
+    // Return a function so the user can fill it up with args and complete the full application
+    // of this function call.
+    return function (/* args */) {
+      var fullArgList = constructArgs(inititalArguments, arguments);
       return functionToCall.apply(context, fullArgList);
-   	}
+    }
    }
 
    /**
@@ -216,7 +216,7 @@
     * @return {array} The argumetns in array form.
     */
    function toArray(argumentsObject) {
-   	return Array.prototype.slice.call(argumentsObject);
+    return Array.prototype.slice.call(argumentsObject);
    }
 
    /**
@@ -253,9 +253,9 @@
     *                  of the last n elements if the user wants to see more than 1.
     */
    function last (arrayToProcess, numberToReturn) {
-   	var numberWeWillReturn = numberToReturn || 1;
-   	returnArray = arrayToProcess.slice(numberWeWillReturn * -1);
-   	return (numberWeWillReturn === 1) ? returnArray[0] : returnArray;
+    var numberWeWillReturn = numberToReturn || 1;
+    returnArray = arrayToProcess.slice(numberWeWillReturn * -1);
+    return (numberWeWillReturn === 1) ? returnArray[0] : returnArray;
    }
 
    /**
@@ -266,20 +266,20 @@
     * @return {array} The flattened array.
     */
    function flatten (arrayToFlatten, isShallow) {
-   	// The first time this is called we set this is false.
+    // The first time this is called we set this is false.
      var stopFlatening = stopFlatening || false,
          returnArray = [],
          flattener = function (value) {
-         	 // If the value is an array and we need to keep flattening call each again.
+           // If the value is an array and we need to keep flattening call each again.
            if (isArray(value) && !stopFlatening) {
-           	  // If the user wants this to be a shallow flatten set stopFlatening to true.
-           	  if (isShallow && !stopFlatening) {
-           	  	stopFlatening = true;
-           	  }
+              // If the user wants this to be a shallow flatten set stopFlatening to true.
+              if (isShallow && !stopFlatening) {
+                stopFlatening = true;
+              }
              each(value, flattener);
            } else {
-           	// This value is not an array, just push it into the return array.
-           	returnArray.push(value);
+            // This value is not an array, just push it into the return array.
+            returnArray.push(value);
            }
          };
       // Make the call to flatten this thing.
@@ -330,13 +330,13 @@
     */
    function without (inputArray, valuesToExclude) {
      var returnArray = [],
-   	     exclusionFunction = function(value) {
-   	 	     if (valuesToExclude.indexOf(value) === -1) {
-   	 		     returnArray.push(value);
-   	 	     }
-   	     };
-   	  each(inputArray, exclusionFunction);
-   	  return returnArray;
+         exclusionFunction = function(value) {
+           if (valuesToExclude.indexOf(value) === -1) {
+             returnArray.push(value);
+           }
+         };
+      each(inputArray, exclusionFunction);
+      return returnArray;
    }
 
   /**
@@ -346,13 +346,13 @@
    * @param {int} step  The value we will increment each element in the array by.
    */
   function range (stop, start, step) {
-  	var start = start || 0,
-  	    step = step || 1,
+    var start = start || 0,
+        step = step || 1,
         returnArray = [];
-  	for (var i = start; i <= stop; i += step) {
-  		returnArray.push(i);
-  	}
-  	return returnArray;
+    for (var i = start; i <= stop; i += step) {
+      returnArray.push(i);
+    }
+    return returnArray;
   }
 
   /**
@@ -363,7 +363,7 @@
    * @return {object} The final object with the keys from the first array and values from second.
    */
   function arrayToObject (keyArray, valueArray) {
-  	var returnObject = {},
+    var returnObject = {},
         arraysToObjectFunction = function (index) {
           returnObject[keyArray[index]] = valueArray[index];
         };
